@@ -51,4 +51,14 @@ public class FactureRestImpl implements FactureRest {
     }
         return  null ;
 }
+
+    @Override
+    public ResponseEntity<String> deleteById(Integer id) {
+        try{
+            return factureService.deleteById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return cafeUtils.getResponseEntity(CafeConstants.erreur, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

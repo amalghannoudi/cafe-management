@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 
@@ -58,9 +59,19 @@ public class FactureServiceImpl implements FactureService {
                      insertFacture(requestMap) ;
                  }
 
-
+                File directory = new File(CafeConstants.locationFiles);
+                if (!directory.exists()) {
+                    if (directory.mkdirs()) {
+                        log.info("Directory created successfully: {}", directory.getAbsolutePath());
+                    } else {
+                        log.error("Failed to create directory: {}", directory.getAbsolutePath());
+                    }
+                }
                     /* generer un pdf avc la location donnée */
                 Document document = new Document();
+                String filePath = CafeConstants.locationFiles + fileName + ".pdf";
+                log.info("Generating PDF at path: {}", filePath);
+
                 PdfWriter.getInstance(document,new FileOutputStream(CafeConstants.locationFiles+fileName+".pdf")) ;
 
 
@@ -75,7 +86,7 @@ public class FactureServiceImpl implements FactureService {
 
                 /* inserer  qlq données */
                 String data = "Name : "+requestMap.get("name")+"\n"+"Contact Number : "+requestMap.get("number")+"\n"+
-                        "Email : "+requestMap.get("email")+"\n"+"Methode de payement : "+requestMap.get("methodepayement") ;
+                        "Email : "+requestMap.get("email")+"\n"+"Methode de payement : "+requestMap.get("methodePayement") ;
 
                 Paragraph para = new Paragraph(data + "\n \n",getFont("Data"));
                 document.add(para) ;
@@ -93,10 +104,11 @@ public class FactureServiceImpl implements FactureService {
                 document.add(table) ;
 
                 /* ajouter foorer*/
-                Paragraph footer = new Paragraph("Total = "+requestMap.get("totaleAmount")+"\n"+
+                Paragraph footer = new Paragraph("Total = "+requestMap.get("totale")+"\n"+
                         "Thank you for visiting ! ",getFont("Data")) ;
                 document.add(footer) ;
                 document.close();
+                log.info("PDF generation successful");
 
                 return  new ResponseEntity<>("{\"uuid\":\""+ fileName +"/}",HttpStatus.OK) ;
              }
@@ -176,8 +188,8 @@ public class FactureServiceImpl implements FactureService {
         facture.setName((String) requestMap.get("name")) ;
         facture.setEmail((String) requestMap.get("email")) ;
         facture.setNumber((String) requestMap.get("number")) ;
-        facture.setMethodePayement((String) requestMap.get("methodepayement"));
-            Object totaleAmountObject = requestMap.get("totaleAmount");
+        facture.setMethodePayement((String) requestMap.get("methodePayement"));
+            Object totaleAmountObject = requestMap.get("totale");
             int totaleValue = Integer.parseInt(totaleAmountObject.toString());
             facture.setTotale(totaleValue);
             facture.setProductDetails((String) requestMap.get("productDetails"));
@@ -193,17 +205,25 @@ public class FactureServiceImpl implements FactureService {
     }
 
     private boolean validateRequest(Map<String, Object> requestMap) {
-        return requestMap != null
-        &&requestMap.containsKey("name")
+        if (requestMap != null
+                && requestMap.containsKey("name")
                 && requestMap.containsKey("number")
                 && requestMap.containsKey("email")
-                && requestMap.containsKey("methodepayement")
+                && requestMap.containsKey("methodePayement")
                 && requestMap.containsKey("productDetails")
-                && requestMap.containsKey("totaleAmount");
+                && requestMap.containsKey("totale")) {
+            log.info("Validation successful");
+            return true;
+        } else {
+            log.info("Values in the requestMap:");
+            requestMap.forEach((key, value) -> log.info("{}: {}", key, value));
+                    return false;
+        }
     }
 
 
-/*Methode retourne all facture to admin and for specific user it return the facture that he does**/
+
+    /*Methode retourne all facture to admin and for specific user it return the facture that he does**/
 
 
     @Override
@@ -228,15 +248,20 @@ public class FactureServiceImpl implements FactureService {
         try {
             byte[] byteArray = new byte[0] ;
             if (!requestMap.containsKey("uuid") && validateRequest(requestMap)){
+                log.error("Invalid request for PDF retrieval.");
+
                 return new ResponseEntity<>(byteArray,HttpStatus.BAD_REQUEST) ;
             }
             /* construire filePath*/
             String filePath= CafeConstants.locationFiles+(String) requestMap.get("uuid")+".pdf" ;
+            log.info("File path: {}", filePath);
 
             if (cafeUtils.isFileExist(filePath)){
                 byteArray= getByteArray(filePath) ;
                return new ResponseEntity<>(byteArray,HttpStatus.OK) ;
             } else {
+                log.info("File does not exist. Generating invoice...");
+
                 requestMap.put("isGenerate",false) ;
                 generateFacture(requestMap) ;
                 log.info("After generating Facture. File Path: {}", filePath);
@@ -252,15 +277,44 @@ public class FactureServiceImpl implements FactureService {
         return null ;
     }
 
+
     /* convertir le fichier à lire en byteArray */
     /* IOUtils class simplifies the process of converting an InputStream */
 
-    private byte[] getByteArray(String filePath)throws Exception {
-      File initFile = new File(filePath) ;
-        InputStream targetStream = new FileInputStream(initFile) ;
-        byte[] byteArray = IOUtils.toByteArray((targetStream)) ;
-        targetStream.close();
-        return byteArray ;
+    private byte[] getByteArray(String filePath) throws Exception {
+        try {
+            File initFile = new File(filePath);
+            if (initFile.exists()) {
+                InputStream targetStream = new FileInputStream(initFile);
+                byte[] byteArray = IOUtils.toByteArray(targetStream);
+                targetStream.close();
+                return byteArray;
+            } else {
+                log.error("File does not exist at path: {}", filePath);
+                return new byte[0];
+            }
+        } catch (Exception e) {
+            log.error("Error reading file: {}", e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
+    /* methode delete by id */
+
+    @Override
+    public ResponseEntity<String> deleteById(Integer id) {
+        try {
+            Optional optional = factureDao.findById(id);
+            if (!optional.isEmpty()){
+            factureDao.deleteById(id);
+            return cafeUtils.getResponseEntity("facture deleted successuly",HttpStatus.OK);
+            }
+            return cafeUtils.getResponseEntity("facture n existe pas",HttpStatus.NOT_FOUND);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    return cafeUtils.getResponseEntity(CafeConstants.erreur,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

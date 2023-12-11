@@ -32,4 +32,5 @@ public interface ProductRest {
     ResponseEntity<ProductWrapper> getById(@PathVariable Integer id );
 
 
+
 }
