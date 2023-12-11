@@ -1,4 +1,38 @@
 package com.cafe.servicelmpl;
 
-public class DashboarsServiceIml {
+import com.cafe.dao.CategoryDao;
+import com.cafe.dao.FactureDao;
+import com.cafe.dao.ProductDao;
+import com.cafe.services.DashboardService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Service
+public class DashboarsServiceIml implements DashboardService {
+
+
+    @Autowired
+    CategoryDao categoryDao ;
+
+    @Autowired
+    ProductDao productDao ;
+
+    @Autowired
+    FactureDao factureDao;
+
+    @Override
+    public ResponseEntity<Map<String, Object>> getDetails() {
+        Map<String,Object> map = new HashMap<>() ;
+     map.put("category",categoryDao.count()) ;
+     map.put("product",productDao.count());
+     map.put("facture",factureDao.count()) ;
+     return new ResponseEntity<>(map, HttpStatus.OK) ;
+
+
+    }
 }
