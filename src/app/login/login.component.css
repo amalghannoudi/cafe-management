@@ -172,6 +172,13 @@ padding-left: 55px;
 .nm_lk{
   text-align:center;
 }
+.erreur {
+  color: red;
+}
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
 
 @media screen and (max-width: 600px) {
   .form-03-main{

@@ -1,1 +1,96 @@
-<p>signup works!</p>
+<section class="form-02-main">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="_lk_de">
+            <form [formGroup]="signUpForm" class="form-03-main" >
+              <div class="logo">
+                <img src="../../assets/img/user.png" alt="User Logo">
+              </div>
+            
+             
+
+              <div class="form-group">
+                <div class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="29" width="29" viewBox="0 0 512 512">
+                    <path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/>
+                  </svg>
+                </div>
+                <input type="email" formControlName="email" class="form-control _ge_de_ol" placeholder="Enter your email..." [(ngModel)]="email">
+                <br>
+
+                <mat-error   *ngIf ="signUpForm.controls.email.touched && signUpForm.controls.email.invalid">
+                  <span class="erreur" *ngIf="signUpForm.controls.email.errors.required">Email est obligatoire</span>
+                  <span class="erreur" *ngIf="signUpForm.controls.email.errors?.pattern">Invalid email format</span>
+
+                </mat-error>
+              </div>
+
+              <div class="form-group">
+                <div class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="29" width="29" viewBox="0 0 512 512">
+                    <path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/>
+                  </svg>
+                </div>
+                <input type="text" formControlName="name" class="form-control _ge_de_ol" placeholder="Enter your name..." [(ngModel)]="name">
+                <br>
+
+                <mat-error   *ngIf ="signUpForm.controls.name.touched && signUpForm.controls.name.invalid">
+                  <span class="erreur" *ngIf="signUpForm.controls.name.errors.required">name est obligatoire</span>
+                  <span class="erreur" *ngIf="signUpForm.controls.name.errors?.pattern">Invalid name format</span>
+
+                </mat-error>
+              </div>
+
+              <div class="form-group">
+                <div class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="29" width="29" viewBox="0 0 512 512">
+                    <path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/>
+                  </svg>
+                </div>
+                <input type="text" formControlName="number" class="form-control _ge_de_ol" placeholder="Enter your number..." [(ngModel)]="number">
+                <br>
+
+                <mat-error   *ngIf ="signUpForm.controls.number.touched && signUpForm.controls.number.invalid">
+                  <span class="erreur" *ngIf="signUpForm.controls.number.errors.required">contact est obligatoire</span>
+                  <span class="erreur" *ngIf="signUpForm.controls.number.errors?.pattern">Invalid contact format</span>
+
+                </mat-error>
+              </div>
+              <div class="form-group">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="29" width="29" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg>
+                </div>
+
+                <input type="password" formControlName="password" class="form-control _ge_de_ol" placeholder="Enter your password ..." [(ngModel)]="password">
+              <br>
+                <mat-error  *ngIf ="signUpForm.controls.password.touched && signUpForm.controls.password.invalid">
+                  <span class="erreur"  *ngIf="signUpForm.controls.password.errors.required">password est obligatoire</span>
+                </mat-error>
+              </div>
+  
+              
+     
+              <div *ngIf="errorMessage" class="error-message">
+                <p>{{ errorMessage }}</p>
+              </div>
+              <div class="form-group">
+                <div class="_btn_04">
+                  <a  (click)="signUp()">signUp</a>
+                </div>
+              </div>
+  
+              <div class="form-group nm_lk"><p>Et si vous avez deja un compte </p></div>
+              <div class="form-group">
+                <div class="_btn_05">
+                    <a routerLink="/login">Se connecter</a>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

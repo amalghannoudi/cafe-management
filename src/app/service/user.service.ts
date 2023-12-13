@@ -12,9 +12,15 @@ export class UserService {
   constructor(private HttpClient:HttpClient) { 
   
   }
-  
+
   login(data:any){
     return this.HttpClient.post(this.url+"/user/login",
+    data,{
+      headers:new HttpHeaders().set("Content-Type","application/json")
+    })
+  }
+  signUp(data:any){
+    return this.HttpClient.post(this.url+"/user/signup",
     data,{
       headers:new HttpHeaders().set("Content-Type","application/json")
     })

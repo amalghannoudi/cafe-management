@@ -12,7 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input'; // Import from '@angular/material/input'
 import { NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component'
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text: "loading ...",
   textColor: "#FFFFFF",
@@ -31,7 +32,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SidebarComponent,
     DashboardComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ReactiveFormsModule,
     MatInputModule, // Correct import statement
     HttpClientModule,
+    MatDialogModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
+
   ],
   providers: [
     provideClientHydration()
