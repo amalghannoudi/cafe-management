@@ -53,7 +53,7 @@ textarea {
 }
 
 .form-02-main{
-  background:url(../../assets/img/cafe.jpg);
+  background:url('/assets/img/cafe.jpg');
   background-size:cover;
   background-repeat:no-repeat;
   background-position:center;

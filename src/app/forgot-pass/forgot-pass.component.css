@@ -1,0 +1,47 @@
+.dialog {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 30%; /* Set the initial width using a percentage */
+    max-width: 600px; /* Set a maximum width to avoid stretching on larger screens */
+}
+
+.dialog .title {
+    color: red;
+    font-size: 35px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-left: 10px; /* Adjust margin instead of padding for spacing */
+    padding-left:50px;
+}
+
+.dialog .form {
+    margin-left: 10px; /* Adjust margin instead of padding for spacing */
+   margin-bottom: 20px;
+   font-size: 19px;
+}
+
+.dialog .button {
+    margin-left: 10px; /* Adjust margin instead of padding for spacing */
+  
+}
+
+.erreur {
+    color: red;
+}
+
+@media (max-width: 600px) {
+    .dialog {
+        width: 90%; /* Set a different width for smaller screens */
+    }
+
+    .dialog .title,
+    .dialog .form,
+    .dialog .button {
+        margin-left: 0; /* Reset margin for smaller screens */
+    }
+}

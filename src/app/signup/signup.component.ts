@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -6,11 +6,13 @@ import { response } from 'express';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { UserService } from '../service/user.service';
 import { GlobalConstants } from '../shared/global-constants';
-
+import {Dialog,DIALOG_DATA,DialogModule}from '@angular/cdk/dialog'
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
+  
 })
 export class SignupComponent {
   signUpForm: any = FormGroup;
@@ -18,6 +20,7 @@ export class SignupComponent {
   name :string='';
   number : string='' ; 
   password: string = '';
+  confi_password:string='';
   responseMsg: any;
   showErrorDialog: boolean = false;
   errorMessage: string = '';
@@ -33,15 +36,16 @@ export class SignupComponent {
       email: [null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
       name: [null, [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
       number: [null, [Validators.required, Validators.pattern(GlobalConstants.contactRegex)]],
-     password: [null, [Validators.required]],
-    confirm_pass: [null, [Validators.required]]
+      password: [null, [Validators.required,Validators.pattern(GlobalConstants.passwordRegex)]],
+      confi_password: [null, [Validators.required]]
     });
   }
+  
 validatePass(){
-  if(this.signUpForm.controls['password'].value != this.signUpForm.controls['confirm_pass'].value){
-    return true  ;
-  }
-  else return false ; 
+  const password = this.signUpForm.controls['password'].value;
+  const confiPassword = this.signUpForm.controls['confi_password'].value;
+
+  return confiPassword && confiPassword !== password;
 }
 
 async signUp(){
@@ -55,17 +59,21 @@ async signUp(){
       password: formData.password
     };
    console.log(data);
+   this.ngxService.stop();
+
+   if (!formData.email || !formData.password || !formData.name || !formData.number) {
+    this.errorMessage = "Les champs sont obligatoires";
+  }
+  else {
    try {
     const response: any = await this.userService.signUp(data).toPromise();
    console.log(response.message);
-    this.ngxService.stop();
     this.route.navigate(['/login']);
   } catch (error: any) {
-    this.ngxService.stop();
     this.errorMessage = error.error?.message ?? GlobalConstants.genericError;
-
+      
   }
  
-
+  }
  }
 }

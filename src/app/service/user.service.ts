@@ -25,4 +25,11 @@ export class UserService {
       headers:new HttpHeaders().set("Content-Type","application/json")
     })
   }
+
+  forgotPass(data:any){
+    return this.HttpClient.post(this.url+"/user/forgotPassword",
+    data,{
+      headers:new HttpHeaders().set("Content-Type","application/json")
+    })
+  }
 }

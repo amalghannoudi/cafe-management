@@ -1,0 +1,19 @@
+<div class="dialog">
+<div mat-dialog-content class="dialog-content">
+    <h2 class="title">Forgot Password?</h2>
+    <form [formGroup]="form_pass" (ngSubmit)="handleSumbit()">
+      <mat-form-field class="form">
+        <input matInput formControlName="email" placeholder="Enter your email">
+        <mat-error   *ngIf ="form_pass.controls.email.touched && form_pass.controls.email.invalid">
+            <span class="erreur" *ngIf="form_pass.controls.email.errors.required">Email est obligatoire</span>
+            <span class="erreur" *ngIf="form_pass.controls.email.errors?.pattern">Invalid email format</span>
+
+          </mat-error>      </mat-form-field>
+    </form>
+  </div>
+  
+  <div mat-dialog-actions class="button">
+    <button mat-button (click)="handleSumbit()" [disabled]="!(form_pass.valid && form_pass.dirty)">Send Password</button>
+    <button mat-button  (click)="onNoClick()">Cancel</button>
+  </div>
+</div>
