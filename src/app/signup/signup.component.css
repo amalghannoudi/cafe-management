@@ -99,8 +99,8 @@ textarea {
 }
 .icon {
     position: absolute;
-    top: 50%;
-    left: 10px; /* Adjust the left distance as needed */
+    top: 41%;
+    left : 3%;/* Adjust the left distance as needed */
     transform: translateY(-50%);
   }
 .form-group p{

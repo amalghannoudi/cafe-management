@@ -34,6 +34,13 @@ export class LoginComponent {
       email: [null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
       password: [null, [Validators.required]]
     });
+    
+    this.userService.checkToken().subscribe((response:any)=>{
+     this.route.navigate(['/dashboard']);
+    },(error:any)=>{
+      console.log(error);
+    })
+
   }
 
   async login() {
@@ -91,6 +98,7 @@ openSuccessDialog(message: string): void {
     // Handle actions after the success dialog is closed (if needed)
   });
 }
+
 
   }
   

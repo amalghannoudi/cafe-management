@@ -32,4 +32,17 @@ export class UserService {
       headers:new HttpHeaders().set("Content-Type","application/json")
     })
   }
+  checkToken(){
+    return this.HttpClient.get(this.url+"/user/checkToken") ; 
+  }
+
+  getUsers(){
+    return this.HttpClient.get('/user/getUsers'); 
+  }
+  changePassword(data:any){
+    return this.HttpClient.post(this.url+"/user/changePassword",
+    data,{
+      headers:new HttpHeaders().set("Content-Type","application/json")
+    })
+  }
 }

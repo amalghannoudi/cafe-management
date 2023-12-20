@@ -1,1 +1,40 @@
-<p>dashboard works!</p>
+<!-- dashboard.component.html -->
+<div class="wrapper">
+  <app-header (sidebarToggle)="toggleSidebar()"></app-header>
+<app-sidebar [linkActive]="'dashboard'" [sidebarShow]="sidebarShow"></app-sidebar>
+
+  <!-- Your existing dashboard content goes here -->
+  <div class="dashboard-content">
+    <div class="row">
+      <div class="column">
+        <div class="card">
+          <div class="container">
+            <h2 class="title">Totale category : </h2>
+            <h1 class="title">{{data?.category}}</h1>
+            <p><button class="button" [routerLink]="['/dashboard/category']">View category</button></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="card">
+          <div class="container">
+            <h2 class="title">Totale products : </h2>
+            <h1 class="title">{{data?.product}}</h1>
+            <p><button class="button" [routerLink]="['/dashboard/product']">View product</button></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="card">
+          <div class="container">
+            <h2 class="title">Totale factures : </h2>
+            <h1 class="title">{{data?.facture}}</h1>
+            <p><button class="button" [routerLink]="['/dashboard/facture']">View factures</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

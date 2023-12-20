@@ -1,0 +1,14 @@
+.mat-toolbar{
+    margin : 19px ; 
+    margin-bottom: 24px;
+    width : auto ; 
+}
+mat-form-field{
+    padding : 5px ; 
+}
+mat-hint{
+    color : red ; 
+}
+.flex-spacer {
+    flex: 1;
+  }

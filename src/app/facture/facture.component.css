@@ -1,0 +1,11 @@
+.wrapper {
+    height: 100%; /* Full height of the viewport */
+  }
+  /* Styles for the main content area */
+  .facture-content {
+    flex: 1;
+    margin-top: 5%;
+    margin-left: 250px; /* Width of the sidebar */
+    padding: 20px; /* Adjust as needed */
+    overflow-y: auto; /* Add scroll if content exceeds viewport height */
+  }

@@ -1,1 +1,23 @@
-<p>header works!</p>
+<!-- header.component.html -->
+<mat-toolbar class="toolbar">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="toggleSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <mat-icon class="home_icon" mat-icon-button aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+  <span class="title">Cafe Management System</span>
+
+  <span class="flex-spacer"></span>
+
+ 
+    <div class="menu-container" [ngClass]="{ 'menu-open': isMenuOpen }">
+      <button mat-icon-button  (click)="toggleMenu()">
+        <mat-icon class="user_icon">account_circle</mat-icon>
+      </button>
+    <div class="menu" *ngIf="isMenuOpen">
+      <div class="menu-item" (click)="logOut()">LogOut</div>
+      <div class="menu-item" (click)="changePassword()">Changer Password</div>
+    </div>
+  </div>
+  <h6>le nom</h6>
+</mat-toolbar>

@@ -1,0 +1,80 @@
+.toolbar{
+    background-color:#5a68c7 ;
+    position: fixed;
+    display: flex;
+  justify-content: space-between;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    z-index: 1000;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+.title{
+    padding-left: 20px;
+    font-size: 35px;
+    color : white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.home_icon{
+    color: rgb(255, 255, 255);
+    width : 54px;
+    padding-left: 20px;
+}
+.user_icon,.down_icon{
+    color: rgb(255, 255, 255);
+
+}
+.flex-spacer {
+    flex: 1;
+  }
+  @media only screen and (max-width: 400px) {
+    .toolbar {
+      flex-direction: column; /* Stack items vertically on small screens */
+      align-items: center; /* Center items vertically */
+    }
+  
+    .title {
+      padding-left: 0; /* Remove left padding for the title */
+      text-align: center; /* Center the text */
+    }
+  
+    .home_icon,
+    .user_icon,
+    .down_icon {
+      padding: 10px; /* Add some padding to icons for spacing */
+    }
+  }.menu-container {
+    position: relative;
+    display: inline-block;
+    padding-right: 120px;
+  }
+  
+  .menu {
+    position: absolute;
+    top: 100%;
+    margin-right: 200px; /* Ajouter un margin-left pour décaler le menu vers la droite */
+
+    display: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .menu-open .menu {
+    display: block;
+  }
+  
+  .menu-item {
+    padding: 8px;
+    padding-right: 20px; /* Ajustez cette valeur selon vos préférences */
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .menu-item:hover {
+    background-color: #f0f0f0;
+  }
+  

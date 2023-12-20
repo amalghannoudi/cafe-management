@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+      <span>Change Password</span>
+      <span fxFlex></span>
+      <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="changePassForm">
+      <div fxLayout="column">
+        <mat-form-field appearance="standard" fxFlex>
+            <mat-label>Old Password</mat-label>
+          <input matInput formControlName="oldPass" type="password" required [type]="showOldPassword ? 'text' : 'password'">
+          <button mat-icon-button matSuffix (click)="toggleShowOldPassword()" [attr.aria-label]="'Toggle Password Visibility'"
+            [attr.aria-pressed]="showOldPassword">
+            <mat-icon>{{ showOldPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="changePassForm.get('oldPass')?.hasError('required')">
+            This field is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+  

@@ -7,7 +7,6 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { UserService } from '../service/user.service';
 import { GlobalConstants } from '../shared/global-constants';
 import {Dialog,DIALOG_DATA,DialogModule}from '@angular/cdk/dialog'
-import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

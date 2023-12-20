@@ -1,0 +1,62 @@
+/* app.component.css */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+.wrapper {
+  height: 100%; /* Full height of the viewport */
+}
+/* Styles for the main content area */
+.dashboard-content {
+  flex: 1;
+  margin-top: 5%;
+  margin-left: 250px; /* Width of the sidebar */
+  padding: 20px; /* Adjust as needed */
+  overflow-y: auto; /* Add scroll if content exceeds viewport height */
+}
+.row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.column {
+  flex: 1;
+  padding: 15px;
+}
+
+.card {
+  border: 1px solid #ddd; /* Border color for the card */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust as needed */
+  transition: box-shadow 0.3s ease-in-out; /* Add a smooth transition for the shadow */
+  /* You can add additional styling as needed */
+}
+
+/* Hover effect for the cards */
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust as needed */
+}
+
+/* Styles for the card content */
+.container {
+  text-align: center;
+}
+
+.title {
+  padding-top: 10px;
+  margin: 0;
+  font-size: 22px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.button {
+  margin-top: 10px;
+}
+.button {
+  display: inline-block;
+  width: 50%;
+  padding: 12px  0px;
+  background: #2b3990;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 17px;
+  color: #fff;
+
+}
